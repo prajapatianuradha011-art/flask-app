@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+</head>
+<body>
+
+<div class="auth-box">
+    <h2>Signup 📝</h2>
+
+    <form method="POST">
+        <input name="username" placeholder="Username" required>
+       <div class="password-box">
+    <input id="password" name="password" type="password" placeholder="Password" required>
+    <span class="toggle-eye" onclick="togglePassword()">👁</span>
+</div>
+        <button type="submit">Signup</button>
+    </form>
+
+    <br>
+    <a href="/login">Already have account?</a>
+</div>
+
+<script>
+function togglePassword(){
+    var pass = document.getElementById("password");
+
+    if(pass.type === "password"){
+        pass.type = "text";
+    } else {
+        pass.type = "password";
+    }
+}
+</script>
+
+</body>
+</html>
