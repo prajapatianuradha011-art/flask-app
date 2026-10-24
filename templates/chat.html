@@ -24,13 +24,6 @@
                     <div class="profile-name">{{ username }}</div>
                 </div>
 
-                <div class="online-panel">
-                    <h3>🟢 Online Users</h3>
-                    <ul id="onlineUsers">
-                        <li>Connecting...</li>
-                    </ul>
-                </div>
-
                 <form action="/logout" method="POST">
                     <button class="icon-button" type="submit" title="Logout">↪</button>
                 </form>
@@ -113,10 +106,19 @@
 
     <script>
 
+        // 1. Connect to the Socket.IO server FIRST
+        const socket = io();
 
+        // 2. Get the current logged-in username
+        const currentUsername = {{ username | tojson }};
+
+        // 3. Find the online users list
         const onlineUsersElement = document.getElementById("onlineUsers");
 
+        // 4. Listen for online user updates
         socket.on("online_users", (users) => {
+            if (!onlineUsersElement) return;
+
             onlineUsersElement.replaceChildren();
 
             if (!Array.isArray(users) || users.length === 0) {
@@ -130,18 +132,12 @@
                 const item = document.createElement("li");
                 item.textContent =
                     name === currentUsername ? name + " (You)" : name;
-
                 onlineUsersElement.appendChild(item);
             });
         });
 
-        socket.on("chat_error", (data) => {
-            if (data && data.msg) {
-                alert(data.msg);
-            }
-        });
+        // Keep your other existing Socket.IO handlers below this line.
 
-        const socket = io();
 
         const statusElement = document.getElementById("status");
         const messagesElement = document.getElementById("messages");
@@ -153,7 +149,7 @@
         const searchInput = document.getElementById("searchInput");
         const globalChatItem = document.getElementById("globalChatItem");
 
-        const currentUsername = {{ username | tojson }};
+
 
         function scrollToBottom() {
             messagesElement.scrollTop = messagesElement.scrollHeight;
@@ -223,17 +219,7 @@
             meta.className = "message-meta";
 
             const time = document.createElement("span");
-            if (data.created_at) {
-                const timestamp = new Date(data.created_at.replace(" ", "T") + "Z");
-                time.textContent = Number.isNaN(timestamp.getTime())
-                    ? showTime()
-                    : timestamp.toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit"
-                    });
-            } else {
-                time.textContent = showTime();
-            }
+            time.textContent = showTime();
 
             meta.appendChild(time);
             bubble.appendChild(text);
