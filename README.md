@@ -10,12 +10,12 @@ Flask-SocketIO
 gunicorn
 simple-websocket
 # your github repositories look like this.
-> app.py
-> requriment.txt
-> templates/
-> login.html
-> signup.html
-> chat.html
-> static/
-> style.css
-> auth.css
+app.py
+ requriment.txt
+ templates/floder/
+ login.html
+ signup.html
+ chat.html
+ static/floder/
+ style.css
+ auth.css
