@@ -1,6 +1,6 @@
-# flask-app 
-# it is real time chatting website. using flask, socket.io, java script.
-# install requrid libires.
+# Flask-app 
+# It is real time chatting website. using flask, socket.io, java script.
+# Install requrid libires.
  python -m pip install Flask Flask-SocketIO    
  python -m pip install --upgrade pip
  python app.py
@@ -9,7 +9,7 @@ Flask
 Flask-SocketIO
 gunicorn
 simple-websocket
-# your github repositories look like this.
+# Your github repositories look like this.
 app.py
  requriment.txt
  templates/floder/
